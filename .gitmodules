@@ -1,0 +1,3 @@
+[submodule "deps/wjelement"]
+	path = deps/wjelement
+	url = git@github.com:netmail-open/wjelement.git
