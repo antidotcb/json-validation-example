@@ -1,4 +1,8 @@
 #include <wjelement.h>
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 /*
 callback: plop validation errors to stderr
@@ -21,8 +25,8 @@ int main(int argc, char **argv) {
     WJElement schema;
 
     if (argc != 3) {
-        printf("usage:\n");
-        printf("\t%s <json-file> <schema-file>\n", argv[0]);
+        cout << "usage:" << endl;
+        cout << "\t" << argv[0] << "<json-file> <schema-file>" << endl;
         return -1;
     }
 
@@ -31,14 +35,14 @@ int main(int argc, char **argv) {
 
     readjson = WJROpenFILEDocument(jsonfile, NULL, 0);
     json = WJEOpenDocument(readjson, NULL, NULL, NULL);
-    printf("json: %s\n", readjson->depth ? "bad" : "good");
+    cout << "JSON:\t\t" << (!readjson->depth ? "PASS" : "FAIL") << endl;
 
     readschema = WJROpenFILEDocument(schemafile, NULL, 0);
     schema = WJEOpenDocument(readschema, NULL, NULL, NULL);
-    printf("schema: %s\n", readschema->depth ? "bad" : "good");
+    cout << "JSON SCHEMA:\t" << (!readschema->depth ? "PASS" : "FAIL") << endl;
 
     XplBool valid = WJESchemaValidate(schema, json, schema_error, 0, 0, 0);
-    printf("validation: %s\n", valid ? "PASS" : "FAIL");
+    cout << "JSON VALID:\t" << (valid ? "PASS" : "FAIL") << endl;
 
     WJECloseDocument(json);
     WJECloseDocument(schema);
